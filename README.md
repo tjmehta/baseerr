@@ -1,7 +1,6 @@
-
 # BaseError
 
-Description
+A solid BaseError class that supports custom properties and wrapping
 
 # Installation
 
@@ -46,4 +45,3 @@ console.log(err.stack)
 # License
 
 MIT
-

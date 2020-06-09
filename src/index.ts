@@ -6,7 +6,6 @@ type _DataType = {} | undefined | null
 
 export default class BaseError<DataType extends _DataType> extends Error {
   readonly name: string
-  readonly data?: DataType
   readonly source?: ErrorShape
   private cachedStack?: string | null
 
@@ -33,6 +32,13 @@ export default class BaseError<DataType extends _DataType> extends Error {
       value: null,
       writable: true,
     })
+  }
+
+  static create<DataType extends _DataType>(
+    message: string,
+    data?: DataType,
+  ): BaseError<DataType> & DataType {
+    return new BaseError(message, data) as BaseError<DataType> & DataType
   }
 
   static wrap<DataType extends _DataType>(

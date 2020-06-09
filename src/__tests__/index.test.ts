@@ -19,13 +19,35 @@ describe('BaseError', () => {
     `)
   })
 
+  it('should create an error', () => {
+    const err = BaseError.create('message', { foo: 10 })
+    err.foo // typescript works..
+    // @ts-ignore
+    // err.cachedStack = cleanStack(err.cachedStack)
+    expect(err).toBeInstanceOf(Error)
+    expect(err).toBeInstanceOf(BaseError)
+    expect(cleanStack(err.stack).trimRight()).toMatchInlineSnapshot(`
+      "BaseError: message
+          at Function.create (/src/index.ts:41:12)
+          at Object.<anonymous> (/src/__tests__/index.test.ts:23:27)
+          at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
+          at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
+          at new Promise (<anonymous>)
+          at mapper (/node_modules/jest-jasmine2/build/queueRunner.js:30:19)
+          at /node_modules/jest-jasmine2/build/queueRunner.js:77:41
+      {
+        \\"foo\\": 10
+      }"
+    `)
+  })
+
   it('should create an error w/ data', () => {
     const err = new BaseError('message', { foo: 10 })
     expect(err).toBeInstanceOf(Error)
     expect(err).toBeInstanceOf(BaseError)
     expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
       "BaseError: message
-          at Object.<anonymous> (/src/__tests__/index.test.ts:23:17)
+          at Object.<anonymous> (/src/__tests__/index.test.ts:45:17)
           at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
           at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
           at new Promise (<anonymous>)
@@ -48,7 +70,7 @@ describe('BaseError', () => {
       } catch (err) {
         expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
           "BaseError: boom
-              at Object.<anonymous> (/src/__tests__/index.test.ts:47:19)
+              at Object.<anonymous> (/src/__tests__/index.test.ts:69:19)
               at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
               at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
               at new Promise (<anonymous>)
@@ -68,8 +90,8 @@ describe('BaseError', () => {
       const err = BaseError.wrap(new Error('baboom'), 'boom', { foo: 10 })
       expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
         "BaseError: boom
-            at Function.wrap (/src/index.ts:45:12)
-            at Object.<anonymous> (/src/__tests__/index.test.ts:68:29)
+            at Function.wrap (/src/index.ts:51:12)
+            at Object.<anonymous> (/src/__tests__/index.test.ts:90:29)
             at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
             at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
             at new Promise (<anonymous>)
@@ -80,7 +102,7 @@ describe('BaseError', () => {
         }
         ----
         Error: baboom
-            at Object.<anonymous> (/src/__tests__/index.test.ts:68:34)
+            at Object.<anonymous> (/src/__tests__/index.test.ts:90:34)
             at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
             at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
             at new Promise (<anonymous>)
@@ -101,9 +123,9 @@ describe('BaseError', () => {
       } catch (err) {
         expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
           "BaseError: boom
-              at Function.wrap (/src/index.ts:45:12)
-              at Function.wrapAndThrow (/src/index.ts:53:16)
-              at Object.<anonymous> (/src/__tests__/index.test.ts:100:19)
+              at Function.wrap (/src/index.ts:51:12)
+              at Function.wrapAndThrow (/src/index.ts:59:16)
+              at Object.<anonymous> (/src/__tests__/index.test.ts:122:19)
               at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
               at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
               at new Promise (<anonymous>)
@@ -114,7 +136,7 @@ describe('BaseError', () => {
           }
           ----
           Error: baboom
-              at Object.<anonymous> (/src/__tests__/index.test.ts:100:32)
+              at Object.<anonymous> (/src/__tests__/index.test.ts:122:32)
               at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
               at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
               at new Promise (<anonymous>)
