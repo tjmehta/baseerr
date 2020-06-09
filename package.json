@@ -1,7 +1,7 @@
 {
   "name": "baseerror",
   "version": "0.0.0",
-  "description": "Description",
+  "description": "A solid BaseError class that supports custom properties and wrapping errors",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
@@ -13,7 +13,18 @@
     "type": "git",
     "url": "git+https://github.com/tjmehta/baseerror.git"
   },
-  "keywords": [],
+  "keywords": [
+    "base error",
+    "custom error",
+    "base error class",
+    "custom error class",
+    "base",
+    "custom",
+    "error",
+    "class",
+    "wrap",
+    "data"
+  ],
   "author": "Tejesh Mehta",
   "license": "MIT",
   "bugs": {
