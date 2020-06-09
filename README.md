@@ -1,11 +1,11 @@
-# BaseError
+# BaseErr
 
 A solid BaseError class that supports custom properties and wrapping errors
 
 # Installation
 
 ```sh
-npm i --save baseerror
+npm i --save baseerr
 ```
 
 # Usage
@@ -13,7 +13,7 @@ npm i --save baseerror
 #### Create a custom error class
 
 ```js
-import BaseError from 'baseerror'
+import BaseError from 'baseerr'
 
 class CustomError extends BaseError {}
 
@@ -27,7 +27,7 @@ console.log(err.stack)
 #### Wrap an error with a custom error class
 
 ```js
-import BaseError from 'baseerror'
+import BaseError from 'baseerr'
 
 class CustomError extends BaseError {}
 
@@ -47,7 +47,7 @@ try {
 #### Wrap an error with a custom error class in promise chain
 
 ```js
-import BaseError from 'baseerror'
+import BaseError from 'baseerr'
 
 class CustomError extends BaseError {}
 
@@ -65,7 +65,7 @@ Promise.reject(new Error('pow')).catch((err) =>
 #### Create custom error instance with data properties
 
 ```js
-import BaseError from 'baseerror'
+import BaseError from 'baseerr'
 
 class CustomError extends BaseError {}
 
@@ -89,7 +89,7 @@ console.log(err.bar) // 20
 #### Create custom api client with robust error handling
 
 ```js
-import BaseError from 'baseerror'
+import BaseError from 'baseerr'
 
 class FetchError extends BaseError {}
 class ResponseError extends BaseError {}

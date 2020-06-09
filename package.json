@@ -1,6 +1,6 @@
 {
-  "name": "baseerror",
-  "version": "0.0.0",
+  "name": "baseerr",
+  "version": "1.0.0",
   "description": "A solid BaseError class that supports custom properties and wrapping errors",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjmehta/baseerror.git"
+    "url": "git+https://github.com/tjmehta/baseerr.git"
   },
   "keywords": [
     "base error",
@@ -28,9 +28,9 @@
   "author": "Tejesh Mehta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tjmehta/baseerror/issues"
+    "url": "https://github.com/tjmehta/baseerr/issues"
   },
-  "homepage": "https://github.com/tjmehta/baseerror#readme",
+  "homepage": "https://github.com/tjmehta/baseerr#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.1",
@@ -43,7 +43,6 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "error-to-json": "github:tjmehta/error-to-json#ts",
     "fast-safe-stringify": "^2.0.7"
   }
 }
