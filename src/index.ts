@@ -81,9 +81,19 @@ export default class BaseError<DataType extends _DataType> extends Error {
     delete data.message
     delete data.name
     if (hasKey(data)) {
+      // hacks for better stringification
+      // @ts-ignore: better regexp stringification
+      RegExp.prototype.toJSON =
+        // @ts-ignore: better regexp stringification
+        RegExp.prototype.toJSON || RegExp.prototype.toString
+
       stack += '\n' + stringify(data, undefined, 2)
       this.cachedStack = stack
       cached = true
+
+      // remove hacks for stringification
+      // @ts-ignore: remove hack
+      delete RegExp.prototype.toJSON
     }
     if (this.source) {
       stack += '\n----\n' + (this.source.stack || this.source.message)
