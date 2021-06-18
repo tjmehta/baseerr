@@ -34,7 +34,7 @@ class CustomError extends BaseError {}
 try {
   throw new Error('pow')
 } catch (_err) {
-  const err = CustomError.wrap('caught error', _err)
+  const err = CustomError.wrap(_err, 'caught error')
   console.log(err.stack)
   // CustomError: caught error
   //     anonymous (filename:8:17)
