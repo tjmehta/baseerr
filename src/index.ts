@@ -4,7 +4,9 @@ type ErrorShape = { message: string; stack?: string }
 
 type _DataType = {} | undefined | null
 
-export default class BaseError<DataType extends _DataType> extends Error {
+export default class BaseError<
+  DataType extends _DataType = undefined
+> extends Error {
   readonly name: string
   readonly source?: ErrorShape
   private cachedStack?: string | null
