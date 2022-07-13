@@ -12,26 +12,32 @@ export default class BaseError<DataType extends _DataType> extends Error {
   constructor(message: string, data?: DataType) {
     super(message)
     this.name = this.constructor.name
-    if (data) Object.assign(this, data)
-    const originalStack = this.stack || '<no stack>'
-    Object.defineProperty(this, 'stack', {
-      get: () => this.getStack(originalStack),
-      set: (val: string) => {
-        this.cachedStack = val
+    const err = Object.create(this, {
+      stack: {
+        get() {
+          const originalStack =
+            Object.getPrototypeOf(this).stack || '<no stack>'
+          return this.getStack(originalStack)
+        },
+        set(val: string) {
+          this.cachedStack = val
+        },
+      },
+      cachedStack: {
+        configurable: true,
+        enumerable: false,
+        value: null,
+        writable: true,
+      },
+      source: {
+        configurable: true,
+        enumerable: false,
+        value: null,
+        writable: true,
       },
     })
-    Object.defineProperty(this, 'cachedStack', {
-      configurable: true,
-      enumerable: false,
-      value: null,
-      writable: true,
-    })
-    Object.defineProperty(this, 'source', {
-      configurable: true,
-      enumerable: false,
-      value: null,
-      writable: true,
-    })
+    if (data) Object.assign(err, data)
+    return err
   }
 
   static create<DataType extends _DataType>(
@@ -77,9 +83,7 @@ export default class BaseError<DataType extends _DataType> extends Error {
     if (this.cachedStack) return this.cachedStack
     let cached = false
     let stack: string = originalStack
-    const data: { message: string; name: string } = { ...this }
-    delete data.message
-    delete data.name
+    const { message: _, name: __, ...data } = this
     if (hasKey(data)) {
       // hacks for better stringification
       // @ts-ignore: better regexp stringification

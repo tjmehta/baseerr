@@ -28,7 +28,7 @@ describe('BaseError', () => {
     expect(err).toBeInstanceOf(BaseError)
     expect(cleanStack(err.stack).trimRight()).toMatchInlineSnapshot(`
       "BaseError: message
-          at Function.create (/src/index.ts:41:12)
+          at Function.create (/src/index.ts:47:12)
           at Object.<anonymous> (/src/__tests__/index.test.ts:23:27)
           at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
           at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
@@ -91,7 +91,7 @@ describe('BaseError', () => {
       const err = BaseError.wrap(new Error('baboom'), 'boom', { foo: 10 })
       expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
         "BaseError: boom
-            at Function.wrap (/src/index.ts:51:12)
+            at Function.wrap (/src/index.ts:57:12)
             at Object.<anonymous> (/src/__tests__/index.test.ts:91:29)
             at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
             at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
@@ -124,8 +124,8 @@ describe('BaseError', () => {
       } catch (err) {
         expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
           "BaseError: boom
-              at Function.wrap (/src/index.ts:51:12)
-              at Function.wrapAndThrow (/src/index.ts:59:16)
+              at Function.wrap (/src/index.ts:57:12)
+              at Function.wrapAndThrow (/src/index.ts:65:16)
               at Object.<anonymous> (/src/__tests__/index.test.ts:123:19)
               at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
               at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
