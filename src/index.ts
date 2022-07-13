@@ -2,10 +2,10 @@ import stringify from 'fast-safe-stringify'
 
 type ErrorShape = { message: string; stack?: string }
 
-type _DataType = {} | undefined | null
+type BaseErrorDataType = {} | undefined | null
 
 export default class BaseError<
-  DataType extends _DataType = undefined
+  DataType extends BaseErrorDataType = undefined
 > extends Error {
   readonly name: string
   readonly source?: ErrorShape
@@ -42,14 +42,14 @@ export default class BaseError<
     return err
   }
 
-  static create<DataType extends _DataType>(
+  static create<DataType extends BaseErrorDataType>(
     message: string,
     data?: DataType,
   ): BaseError<DataType> & DataType {
     return new BaseError(message, data) as BaseError<DataType> & DataType
   }
 
-  static wrap<DataType extends _DataType>(
+  static wrap<DataType extends BaseErrorDataType>(
     source: ErrorShape,
     message: string,
     data?: DataType,
@@ -59,7 +59,7 @@ export default class BaseError<
     return new Class(message, data).wrap(source)
   }
 
-  static wrapAndThrow<DataType extends _DataType>(
+  static wrapAndThrow<DataType extends BaseErrorDataType>(
     source: ErrorShape,
     message: string,
     data?: DataType,
@@ -67,7 +67,7 @@ export default class BaseError<
     throw this.wrap(source, message, data)
   }
 
-  static assert<DataType extends _DataType>(
+  static assert<DataType extends BaseErrorDataType>(
     condition: any,
     message: string,
     data?: DataType,
