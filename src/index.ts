@@ -3,6 +3,7 @@ import stringify from 'fast-safe-stringify'
 type ErrorShape = { message: string; stack?: string }
 
 type BaseErrorDataType = {} | undefined | null
+type BaseErrorStaticDataType = {} | undefined | null //BaseErrorDataType
 
 export default class BaseError<
   DataType extends BaseErrorDataType = undefined
@@ -42,36 +43,32 @@ export default class BaseError<
     return err
   }
 
-  static create<DataType extends BaseErrorDataType>(
-    message: string,
-    data?: DataType,
-  ): BaseError<DataType> & DataType {
+  static create<
+    DataType extends BaseErrorStaticDataType = BaseErrorStaticDataType
+  >(message: string, data?: DataType): BaseError<DataType> & DataType {
     return new BaseError(message, data) as BaseError<DataType> & DataType
   }
 
-  static wrap<DataType extends BaseErrorDataType>(
-    source: ErrorShape,
-    message: string,
-    data?: DataType,
-  ) {
+  static wrap<
+    DataType extends BaseErrorStaticDataType = BaseErrorStaticDataType
+  >(source: ErrorShape, message: string, data?: DataType) {
     const Class = this.prototype.constructor
     // @ts-ignore
-    return new Class(message, data).wrap(source)
+    return new Class(message, data).wrap(
+      source,
+      /*passedCachedStack*/ data ? 'cachedStack' in (data as {}) : false,
+    )
   }
 
-  static wrapAndThrow<DataType extends BaseErrorDataType>(
-    source: ErrorShape,
-    message: string,
-    data?: DataType,
-  ): never {
+  static wrapAndThrow<
+    DataType extends BaseErrorStaticDataType = BaseErrorStaticDataType
+  >(source: ErrorShape, message: string, data?: DataType): never {
     throw this.wrap(source, message, data)
   }
 
-  static assert<DataType extends BaseErrorDataType>(
-    condition: any,
-    message: string,
-    data?: DataType,
-  ): asserts condition {
+  static assert<
+    DataType extends BaseErrorStaticDataType = BaseErrorStaticDataType
+  >(condition: any, message: string, data?: DataType): asserts condition {
     const Class = this.prototype.constructor
     if (!condition) {
       // @ts-ignore
@@ -110,10 +107,12 @@ export default class BaseError<
     return this.cachedStack || stack
   }
 
-  wrap(source: ErrorShape) {
+  wrap(source: ErrorShape, passedCachedStack?: boolean): this {
     // @ts-ignore
     this.source = source
-    this.cachedStack = null
+    if (!passedCachedStack) {
+      this.cachedStack = null
+    }
     return this
   }
 }

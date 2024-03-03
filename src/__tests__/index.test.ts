@@ -28,7 +28,7 @@ describe('BaseError', () => {
     expect(err).toBeInstanceOf(BaseError)
     expect(cleanStack(err.stack).trimRight()).toMatchInlineSnapshot(`
       "BaseError: message
-          at Function.create (/src/index.ts:47:12)
+          at Function.create (/src/index.ts:49:12)
           at Object.<anonymous> (/src/__tests__/index.test.ts:23:27)
           at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
           at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
@@ -125,7 +125,7 @@ describe('BaseError', () => {
         expect(cleanStack(err.stack)).toMatchInlineSnapshot(`
           "BaseError: boom
               at Function.wrap (/src/index.ts:57:12)
-              at Function.wrapAndThrow (/src/index.ts:65:16)
+              at Function.wrapAndThrow (/src/index.ts:66:16)
               at Object.<anonymous> (/src/__tests__/index.test.ts:123:19)
               at Object.asyncJestTest (/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
               at /node_modules/jest-jasmine2/build/queueRunner.js:47:12
@@ -150,8 +150,8 @@ describe('BaseError', () => {
   })
 })
 
-function cleanStack(stack: string) {
-  return stack
+function cleanStack(stack: string | undefined) {
+  return (stack || '')
     .replace(new RegExp(regExpEscape(process.cwd()), 'g'), '')
     .replace(/.*\/wallaby\/.*\n/g, '')
     .replace(/.* processTicksAndRejections .*(\n|$)/g, '')
