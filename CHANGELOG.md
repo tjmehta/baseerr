@@ -1,3 +1,7 @@
+# v2.0.1
+
+- patch: package.json types
+
 # v2.0.0
 
 - major: fix cjs and esm support
