@@ -1,3 +1,7 @@
+# v2.0.4
+
+- patch: fix tests
+
 # v2.0.3
 
 - patch: fix build
