@@ -1,3 +1,7 @@
+# v2.0.2
+
+- patch: improved build script
+
 # v2.0.1
 
 - patch: package.json types

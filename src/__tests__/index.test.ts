@@ -150,6 +150,24 @@ describe('BaseError', () => {
   })
 })
 
+describe('ExtendedError', () => {
+  class ExtendedError extends BaseError {}
+
+  it('should include ExtendedError name in stack', () => {
+    const err = new ExtendedError('baboosh')
+    expect(err.stack).toMatchInlineSnapshot(`
+      "ExtendedError: baboosh
+          at Object.<anonymous> (/Users/tjmehta/Developer/@tjmehta/baseerr/src/__tests__/index.test.ts:157:17)
+          at Object.asyncJestTest (/Users/tjmehta/Developer/@tjmehta/baseerr/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:100:37)
+          at /Users/tjmehta/Developer/@tjmehta/baseerr/node_modules/jest-jasmine2/build/queueRunner.js:47:12
+          at new Promise (<anonymous>)
+          at mapper (/Users/tjmehta/Developer/@tjmehta/baseerr/node_modules/jest-jasmine2/build/queueRunner.js:30:19)
+          at /Users/tjmehta/Developer/@tjmehta/baseerr/node_modules/jest-jasmine2/build/queueRunner.js:77:41
+          at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+    `)
+  })
+})
+
 function cleanStack(stack: string | undefined) {
   return (stack || '')
     .replace(new RegExp(regExpEscape(process.cwd()), 'g'), '')
