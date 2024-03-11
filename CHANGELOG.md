@@ -1,3 +1,7 @@
+# v2.0.3
+
+- patch: fix build
+
 # v2.0.2
 
 - patch: improved build script
