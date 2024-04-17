@@ -1,3 +1,7 @@
+# v2.0.5
+
+- patch: fix exports.types in pkg
+
 # v2.0.4
 
 - patch: fix tests
