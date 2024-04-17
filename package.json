@@ -1,6 +1,6 @@
 {
   "name": "baseerr",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A solid BaseError class that supports custom properties and wrapping errors",
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
