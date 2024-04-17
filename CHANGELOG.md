@@ -1,3 +1,7 @@
+# v2.0.6
+
+- patch: publish err
+
 # v2.0.5
 
 - patch: fix exports.types in pkg
